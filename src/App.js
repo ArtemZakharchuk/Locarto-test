@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ChakraProvider, Box } from "@chakra-ui/react";
 
-function App() {
+import GlobalModalProvider from "./contexts/globalModalContext";
+import GlobalSpinnerProvider from "./contexts/globalSpinnerContext";
+import AuthProvider from "./contexts/authContext";
+
+import LoginPage from "./pages/LoginPage";
+import EmptyRoutePage from "./pages/EmptyRoutePage";
+import MainPage from "./pages/MainPage";
+import AccountPage from "./pages/AccountPage";
+
+import PrivateRoute from "./components/HOC/PrivateRoute";
+import GlobalModal from "./components/GlobalModal";
+import GlobalSpinner from "./components/GlobalSpinner";
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <AuthProvider>
+        <GlobalSpinnerProvider>
+          <GlobalModalProvider>
+            <Box overflow={"hidden"} p={2}>
+              <GlobalSpinner />
+              <GlobalModal />
+              <Router>
+                <Switch>
+                  <PrivateRoute path="/main">
+                    <MainPage />
+                  </PrivateRoute>
+                  <PrivateRoute path="/account">
+                    <AccountPage />
+                  </PrivateRoute>
+                  <Route path="/login">
+                    <LoginPage />
+                  </Route>
+                  <Route path="/">
+                    <EmptyRoutePage />
+                  </Route>
+                </Switch>
+              </Router>
+            </Box>
+          </GlobalModalProvider>
+        </GlobalSpinnerProvider>
+      </AuthProvider>
+    </ChakraProvider>
   );
 }
-
-export default App;
