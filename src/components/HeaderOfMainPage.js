@@ -1,5 +1,5 @@
 import { EditIcon } from "@chakra-ui/icons";
-import { Button, FormControl, FormLabel, IconButton, Switch as ChakraSwitch } from "@chakra-ui/react";
+import { Button, Box, FormLabel, IconButton, Switch as ChakraSwitch } from "@chakra-ui/react";
 
 export default function HeaderOfMainPage({
   userName,
@@ -17,7 +17,7 @@ export default function HeaderOfMainPage({
       <Button ml={2} colorScheme="blue" onClick={onSignOutClick}>
         Sign out
       </Button>
-      <FormControl display="flex" alignItems="center">
+      <Box display="flex" alignItems="center">
         <FormLabel htmlFor="listGridSwitcher" m={0}>
           List
         </FormLabel>
@@ -31,7 +31,7 @@ export default function HeaderOfMainPage({
         <Button m={2} onClick={onShowSpinnerFor2Seconds}>
           Show Spinner for 2 seconds
         </Button>
-      </FormControl>
+      </Box>
     </>
   );
 }

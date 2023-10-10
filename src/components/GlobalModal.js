@@ -23,7 +23,9 @@ export default function GlobalModal() {
         <ModalHeader>Modal Title</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box whiteSpace={"pre-line"}>{JSON.stringify(globalModalContent, null, 4) || "No content"}</Box>
+          <Box whiteSpace={"pre-line"}>
+            {(globalModalContent && JSON.stringify(globalModalContent, null, 4)) || "No content"}
+          </Box>
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={onClose}>
