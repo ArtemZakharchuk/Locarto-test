@@ -12,5 +12,5 @@ export default function LoginForm() {
     });
   };
 
-  return <UserNameForm onSubmit={onSubmit} formLabel="Your Name" formButtonLabel="Enter" userName={userName} />;
+  return <UserNameForm userName={userName} onSubmit={onSubmit} formLabel="Your Name" formButtonLabel="Enter" />;
 }

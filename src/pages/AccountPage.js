@@ -12,5 +12,5 @@ export default function AccountPage() {
     });
   };
 
-  return <UserNameForm onSubmit={onSubmit} formLabel="Change Your Name" formButtonLabel="ok" userName={userName} />;
+  return <UserNameForm userName={userName} onSubmit={onSubmit} formLabel="Change Your Name" formButtonLabel="ok" />;
 }

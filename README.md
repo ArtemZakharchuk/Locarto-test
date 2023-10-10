@@ -6,9 +6,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You’ll need to have Node >= 14 on your local development machine
 
-## Available Scripts
+## How to run
 
-In the project directory, you can run:
+In the project directory, you should run next commands:
+
+Install dependencies
+
+### `npm install`
+
+Run the app
 
 ### `npm start`
 

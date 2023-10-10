@@ -3,11 +3,11 @@ import { Button, Input, FormControl, FormErrorMessage, FormLabel } from "@chakra
 import { requiredString } from "../utils/validators";
 
 export default function UserNameForm({
+  userName,
   onSubmit,
   formLabel,
   formButtonLabel,
   textPlaceholder = "Enter your name here",
-  userName,
 }) {
   return (
     <Form

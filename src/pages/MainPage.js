@@ -24,7 +24,7 @@ export default function Main() {
   const { setShowGlobalModal, setGlobalModalContent } = useGlobalModal();
 
   const layoutContainerRef = useRef(null);
-  const [isGrid, setIsGrid] = useState(true);
+  const [isGridLayout, setIsGridLayout] = useState(true);
   const [showOnlyLiveCharacters, setShowOnlyLiveCharacters] = useState(false);
 
   const { items, page, fetchData } = useCharacters(setShowGlobalSpinner);
@@ -40,7 +40,7 @@ export default function Main() {
     return () => {
       abortController.abort();
     };
-  }, [page, fetchData]);
+  }, [page, fetchData, showOnlyLiveCharacters]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -87,17 +87,17 @@ export default function Main() {
         userName={userName}
         onEditClick={redirectToAccountPage}
         onSignOutClick={signOutAndRedirectToLoginPage}
-        isGridLayout={isGrid}
+        isGridLayout={isGridLayout}
         onLayoutChange={() => {
           layoutContainerRef.current.scrollTo(0, 0);
-          setIsGrid((prev) => !prev);
+          setIsGridLayout((prev) => !prev);
         }}
         onShowModalClick={() => setShowGlobalModal(true)}
         onShowSpinnerFor2Seconds={showSpinnerFor2Seconds}
       />
       <FilterBlock onSubmit={({ showOnlyLiveCharacters }) => setShowOnlyLiveCharacters(showOnlyLiveCharacters)} />
       <Box w="100%" h="85vh" overflowY="auto" ref={layoutContainerRef} p={4} display="flex" justifyContent="center">
-        {isGrid ? (
+        {isGridLayout ? (
           <GridLayout items={itemsToShow} onItemClick={showFullInfo} />
         ) : (
           <ListLayout items={itemsToShow} onItemClick={showFullInfo} />
