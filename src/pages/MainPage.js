@@ -27,20 +27,20 @@ export default function Main() {
   const [isGridLayout, setIsGridLayout] = useState(true);
   const [showOnlyLiveCharacters, setShowOnlyLiveCharacters] = useState(false);
 
-  const { items, page, fetchData } = useCharacters(setShowGlobalSpinner);
+  const { items, fetchData } = useCharacters(setShowGlobalSpinner, showOnlyLiveCharacters);
 
   useEffect(() => {
     const abortController = new AbortController();
-    const isElementFilledOnAllAvailableHeight =
+    const isElementNotFilledOnAllAvailableHeight =
       layoutContainerRef.current.scrollHeight === layoutContainerRef.current.offsetHeight;
-    if (page > 1 && isElementFilledOnAllAvailableHeight) {
+    if (isElementNotFilledOnAllAvailableHeight) {
       fetchData(abortController);
     }
 
     return () => {
       abortController.abort();
     };
-  }, [page, fetchData, showOnlyLiveCharacters]);
+  }, [fetchData]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -77,10 +77,6 @@ export default function Main() {
     setShowGlobalModal(true);
   };
 
-  const itemsToShow = useMemo(() => {
-    return showOnlyLiveCharacters ? items.filter((item) => item.status === "Alive") : items;
-  }, [showOnlyLiveCharacters, items]);
-
   return (
     <>
       <HeaderOfMainPage
@@ -98,9 +94,9 @@ export default function Main() {
       <FilterBlock onSubmit={({ showOnlyLiveCharacters }) => setShowOnlyLiveCharacters(showOnlyLiveCharacters)} />
       <Box w="100%" h="85vh" overflowY="auto" ref={layoutContainerRef} p={4} display="flex" justifyContent="center">
         {isGridLayout ? (
-          <GridLayout items={itemsToShow} onItemClick={showFullInfo} />
+          <GridLayout items={items} onItemClick={showFullInfo} />
         ) : (
-          <ListLayout items={itemsToShow} onItemClick={showFullInfo} />
+          <ListLayout items={items} onItemClick={showFullInfo} />
         )}
       </Box>
     </>
